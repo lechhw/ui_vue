@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1>UI with Vue</h1>
+    <router-link to="/home"><h1>UI with Vue</h1></router-link>
   </div>
 </template>
 
@@ -24,6 +24,10 @@ export default {
 
   h1 {
     font-size: 20px;
+  }
+
+  a {
+    color: white;
   }
 }
 </style>

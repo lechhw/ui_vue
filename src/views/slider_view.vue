@@ -1,11 +1,9 @@
 <template>
-  <div>home</div>
+  <div>slider</div>
 </template>
 
 <script>
 export default {
-  name: 'HomeView',
-
   data() {
     return {}
   },
