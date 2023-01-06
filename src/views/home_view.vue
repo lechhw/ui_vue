@@ -2,7 +2,7 @@
   <div>
     <div class="divider"></div>
     <ul class="ui_list">
-      <router-link to="chart_gender">
+      <router-link to="chart_gender" :chart-data="chartData_gender">
         <li>
           01. Chart-Gender
           <font-awesome-icon class="icon" icon="fa-solid fa-arrow-right" />
