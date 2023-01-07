@@ -1,13 +1,12 @@
 <template>
   <div class="wrapper">
-    <div class="header">
+    <div class="gender_header">
       <h3>비교 데이터 1개일 경우</h3>
       <button class="reloadBtn" title="데이터 새로고침" @click="fetchData">
         <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
       </button>
     </div>
-
-    <gender-comp :chartData="chartData"></gender-comp>
+    <gender-comp :chartData="chartData" style="height: 250px"></gender-comp>
   </div>
 </template>
 
@@ -15,7 +14,7 @@
 import genderComp from '@/components/genderComp.vue'
 export default {
   components: { genderComp },
-  name: 'ChartGender',
+  // name: 'ChartGender',
 
   data() {
     return {
@@ -31,6 +30,7 @@ export default {
                 value: Math.floor(Math.random() * 1234),
               },
             ],
+            color: '#bfe5fc',
           },
           {
             name: '여성',
@@ -42,6 +42,7 @@ export default {
                 value: Math.floor(Math.random() * 1234),
               },
             ],
+            color: '#fcbff2',
           },
         ],
       },
@@ -99,8 +100,9 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   padding: 20px;
+  box-sizing: border-box;
 }
-.header {
+.gender_header {
   display: flex;
   align-items: center;
 

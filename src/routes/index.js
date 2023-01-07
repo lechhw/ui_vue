@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/home_view'
-import ChartGender from '../views/chart_gender'
+import ChartGender from '../views/chart-gender_view'
 import SliderView from '../views/slider_view'
 
 Vue.use(VueRouter)
