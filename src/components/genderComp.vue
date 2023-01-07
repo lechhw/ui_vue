@@ -4,6 +4,7 @@
       <div class="manWrap">
         <div class="manGraph">
           <span class="info">{{ mData.per }}%</span>
+
           <svg
             ref="manImg"
             id="manImg"
@@ -53,6 +54,8 @@
               fill="#bfe5fc"
             />
           </svg>
+
+          <span class="name">남성</span>
         </div>
       </div>
       <div class="womanWrap">
@@ -100,6 +103,8 @@
               fill="#fcbff2"
             />
           </svg>
+
+          <span class="name">여성</span>
         </div>
       </div>
     </div>
@@ -127,7 +132,7 @@ export default {
   },
 
   mounted() {
-    this.getData()
+    // this.getData()
   },
 
   computed: {
@@ -149,6 +154,16 @@ export default {
           : 100 - this.fData.per
 
       return result
+    },
+  },
+
+  watch: {
+    chartData: {
+      immediate: true,
+      deep: true,
+      handler() {
+        this.getData()
+      },
     },
   },
 
@@ -219,6 +234,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -239,9 +255,15 @@ export default {
       left: 50%;
       top: -30px;
       transform: translateX(-50%);
-      font-size: 16px;
-      font-weight: 600;
-      color: #212121;
+      font-size: 14px;
+    }
+
+    .name {
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      transform: translateX(-50%);
+      font-size: 14px;
     }
 
     #manImg {
@@ -263,9 +285,15 @@ export default {
       left: 50%;
       top: -30px;
       transform: translateX(-50%);
-      font-size: 16px;
-      font-weight: 600;
-      color: #212121;
+      font-size: 14px;
+    }
+
+    .name {
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+      transform: translateX(-50%);
+      font-size: 14px;
     }
 
     #womanImg {
