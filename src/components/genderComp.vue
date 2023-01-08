@@ -1,11 +1,11 @@
 <template>
-  <div class="content">
+  <div :id="id" class="content">
     <div v-if="chartData == null || !chartData" class="ui_nodata">
       <font-awesome-icon icon="fa-solid fa-file" />
       <span>데이터가 없습니다.</span>
     </div>
     <div v-else class="chart_wrapper">
-      <div class="manWrap">
+      <div class="manWrap" :style="{ height: manScale }">
         <div class="manGraph">
           <span class="info">{{ mData.per }}%</span>
 
@@ -16,7 +16,7 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <mask id="svgId">
+            <mask :id="mMaskId">
               <rect
                 x="0"
                 y="0"
@@ -34,22 +34,24 @@
             />
 
             <path
+              v-if="multiMan.length == 0"
               xmlns="http://www.w3.org/2000/svg"
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
               fill="#ffff"
-              mask="url(#svgId)"
+              :mask="mSvgId"
             />
 
-            <!-- <path
-          xmlns="http://www.w3.org/2000/svg"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
-          fill="#ffff"
-          mask="svgId"
-        /> -->
+            <path
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
+              fill="#ffff"
+              :mask="mSvgId"
+            />
 
             <path
               fill-rule="evenodd"
@@ -60,6 +62,7 @@
           </svg>
 
           <div
+            v-if="multiMan.length == 0"
             class="dataBox"
             @mouseover="evt_mouse_over"
             @mouseout="evt_mouse_out"
@@ -74,16 +77,63 @@
             ></div>
           </div>
 
-          <div class="bubble_box" :style="{ background: mData.color }">
+          <div
+            v-else
+            id="dataBoxMan"
+            class="dataBox"
+            @mouseover="evt_mouse_over"
+            @mouseout="evt_mouse_out"
+          >
+            <div
+              :style="{ height: multiManHgtT + 'px' }"
+              @click="evt_click(mData)"
+            >
+              <div
+                class="bubble_box multi"
+                :style="{ background: multiMan[0].color }"
+              >
+                <span class="title">{{ multiMan[0].name }}</span>
+                <strong class="dv">{{ multiMan[0].value }}</strong>
+                <span class="per">({{ multiMan[0].per }}%)</span>
+                <div
+                  class="arrow"
+                  :style="{ background: multiMan[0].color }"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              :style="{ height: multiManHgtB + 'px' }"
+              @click="evt_click(mData)"
+            ></div>
+            <div
+              class="bubble_box multi"
+              :style="{ background: multiMan[1].color }"
+            >
+              <span class="title">{{ multiMan[1].name }}</span>
+              <strong class="dv">{{ multiMan[1].value }}</strong>
+              <span class="per">({{ multiMan[1].per }}%)</span>
+              <div
+                class="arrow"
+                :style="{ background: multiMan[1].color }"
+              ></div>
+            </div>
+          </div>
+
+          <div
+            v-if="multiMan.length == 0"
+            class="bubble_box"
+            :style="{ background: mData.color }"
+          >
             <span class="title">{{ mData.name }}</span>
             <strong class="dv">{{ mData.value }}</strong>
             <span class="per">({{ mData.per }}%)</span>
+            <div class="arrow" :style="{ background: mData.color }"></div>
           </div>
-
-          <span class="name">남성</span>
         </div>
+        <span class="name">남성</span>
       </div>
-      <div class="womanWrap">
+      <div class="womanWrap" :style="{ height: womanScale }">
         <div class="womanGraph">
           <span class="info">{{ fData.per }}%</span>
           <svg
@@ -93,7 +143,7 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <mask id="svgWoId">
+            <mask :id="fMaskId">
               <rect
                 x="0"
                 y="0"
@@ -111,15 +161,24 @@
             />
 
             <path
+              v-if="multiWoman.length == 0"
               xmlns="http://www.w3.org/2000/svg"
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z"
               fill="#ffff"
-              mask="url(#svgWoId)"
+              :mask="fSvgId"
             />
 
-            <!-- <path v-else xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z" fill="#ffff"  :mask="svgWoId2"/> -->
+            <path
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z"
+              fill="#ffff"
+              :mask="fSvgId"
+            />
 
             <path
               fill-rule="evenodd"
@@ -128,8 +187,9 @@
               :fill="setWomanColor"
             />
           </svg>
-
+          <!-- 싱글 데이터 -->
           <div
+            v-if="multiWoman.length == 0"
             class="dataBox"
             @mouseover="evt_mouse_over"
             @mouseout="evt_mouse_out"
@@ -144,10 +204,58 @@
             ></div>
           </div>
 
-          <div class="bubble_box" :style="{ background: fData.color }">
+          <!-- 멀티 데이터 -->
+          <div v-else id="dataBoxWo" class="dataBox">
+            <div
+              :style="{ height: multiWoHgtT + 'px' }"
+              @click="evt_click(mData)"
+              @mouseover="evt_mouse_over"
+              @mouseout="evt_mouse_out"
+            >
+              <div
+                class="bubble_box multi"
+                :style="{ background: multiWoman[1].color }"
+              >
+                <span class="title">{{ multiWoman[1].name }}</span>
+                <strong class="dv">{{ multiWoman[1].value }}</strong>
+                <span class="per">({{ multiWoman[1].per }}%)</span>
+                <div
+                  class="arrow"
+                  :style="{ background: multiWoman[1].color }"
+                ></div>
+              </div>
+            </div>
+
+            <div
+              :style="{ height: multiWoHgtB + 'px' }"
+              @click="evt_click(mData)"
+              @mouseover="evt_mouse_over"
+              @mouseout="evt_mouse_out"
+            >
+              <div
+                class="bubble_box multi"
+                :style="{ background: multiWoman[0].color }"
+              >
+                <span class="title">{{ multiWoman[0].name }}</span>
+                <strong class="dv">{{ multiWoman[0].value }}</strong>
+                <span class="per">({{ multiWoman[0].per }}%)</span>
+                <div
+                  class="arrow"
+                  :style="{ background: multiWoman[0].color }"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            v-if="multiMan.length == 0"
+            class="bubble_box"
+            :style="{ background: fData.color }"
+          >
             <span class="title">{{ fData.name }}</span>
             <strong class="dv">{{ fData.value }}</strong>
             <span class="per">({{ fData.per }}%)</span>
+            <div class="arrow" :style="{ background: fData.color }"></div>
           </div>
 
           <span class="name">여성</span>
@@ -175,20 +283,43 @@ export default {
     }
   },
   props: {
+    id: { type: String, default: null },
     chartData: { type: Object, default: null },
   },
 
-  mounted() {
-    // this.getData()
-  },
-
   computed: {
+    manScale() {
+      let scale = ((this.mData.per / this.fData.per) * 100).toFixed(1)
+      if (this.multiMan.length == 0) {
+        return
+      } else {
+        return this.mData.per > this.fData.per
+          ? '100%'
+          : scale > 40
+          ? scale + '%'
+          : '40%'
+      }
+    },
+
+    womanScale() {
+      var scale = ((this.fData.per / this.mData.per) * 100).toFixed(1)
+
+      if (this.multiWoman.length == 0) {
+        return
+      } else {
+        return this.fData.per > this.mData.per
+          ? '100%'
+          : scale > 40
+          ? scale + '%'
+          : '40%'
+      }
+    },
     setManHgt() {
       let result = ''
       result =
-        this.multiMan.length > 0
-          ? 100 - this.multiMan[0].per
-          : 100 - this.mData.per
+        this.multiMan.length == 0
+          ? 100 - this.mData.per
+          : 100 - this.multiMan[0].per
 
       return result
     },
@@ -196,9 +327,9 @@ export default {
     setWomanHgt() {
       let result = ''
       result =
-        this.multiWoman.length > 0
-          ? 100 - this.multiWoman[0].per
-          : 100 - this.fData.per
+        this.multiWoman.length == 0
+          ? 100 - this.fData.per
+          : 100 - this.multiWoman[0].per
 
       return result
     },
@@ -211,6 +342,53 @@ export default {
     setWomanColor() {
       let result = ''
       this.fData.color ? (result = this.fData.color) : (result = '#ececec')
+      return result
+    },
+
+    setBubbleColM() {
+      let result = {
+        background: this.mData.color,
+        borderColor: this.mData.color,
+      }
+      return result
+    },
+    mMaskId() {
+      let result = ''
+      result =
+        this.multiMan.length == 0
+          ? this.id + '_singleMan'
+          : this.id + '_multiMan'
+      return result
+    },
+
+    mSvgId() {
+      let name = ''
+      let result = ''
+      name =
+        this.multiMan.length == 0
+          ? this.id + '_singleMan'
+          : this.id + '_multiMan'
+      result = `url(#${name})`
+      return result
+    },
+
+    fMaskId() {
+      let result = ''
+      result =
+        this.multiWoman.length == 0
+          ? this.id + '_singleWo'
+          : this.id + '_multiWo'
+      return result
+    },
+
+    fSvgId() {
+      let name = ''
+      let result = ''
+      name =
+        this.multiWoman.length == 0
+          ? this.id + '_singleWo'
+          : this.id + '_multiWo'
+      result = `url(#${name})`
       return result
     },
   },
@@ -249,7 +427,7 @@ export default {
         }
 
         if (item.datas.length > 1) {
-          if (item.code == '남성') {
+          if (item.code == 'M') {
             item.datas.forEach((item3) => {
               _this.multiMan.push({
                 name: item.name + 'x' + item3.name,
@@ -264,6 +442,7 @@ export default {
                 name: item.name + 'x' + item3.name,
                 value: item3.value,
                 per: ((item3.value / woman) * 100).toFixed(1),
+
                 color: item.color ? item.color : '',
               })
             })
@@ -274,19 +453,31 @@ export default {
       totalData = man + woman
       this.mData = {
         name: '남성',
-        value: man,
+        value: Number(man).toLocaleString('ko-KR'),
         per: ((man / totalData) * 100).toFixed(1),
         color: mColor,
       }
 
       this.fData = {
         name: '여성',
-        value: woman,
+        value: Number(woman).toLocaleString('ko-KR'),
         per: ((woman / totalData) * 100).toFixed(1),
         color: fColor,
       }
       this.customColorM = mColor
-      console.log(this.fData)
+    },
+
+    multiHeight() {
+      if (this.multiWoman.length == 0 || this.multiMan.length == 0) return
+      let dataBoxMan = document.getElementById('dataBoxMan')
+      let manHgt = (dataBoxMan.clientHeight * this.setManHgt) / 100
+      this.multiManHgtT = manHgt
+      this.multiManHgtB = dataBoxMan.clientHeight - manHgt
+
+      let dataBoxWo = document.getElementById('dataBoxWo')
+      let womanHgt = (dataBoxWo.clientHeight * this.setWomanHgt) / 100
+      this.multiWoHgtT = womanHgt
+      this.multiWoHgtB = dataBoxWo.clientHeight - womanHgt
     },
 
     evt_click(val) {
@@ -295,13 +486,30 @@ export default {
     },
 
     evt_mouse_over(e) {
-      let bubble = e.target.parentElement.nextSibling
-      bubble.style.opacity = 1
+      if (this.multiWoman.length == 0 || this.multiMan.length == 0) {
+        let bubble = e.target.parentElement.nextSibling
+        bubble.style.opacity = 1
+      } else {
+        let bubble = e.target.childNodes[0]
+        let posTop = e.target.offsetTop + e.target.clientHeight / 2
+
+        bubble.style.opacity = 1
+        bubble.style.top = -posTop
+      }
     },
     evt_mouse_out(e) {
-      let bubble = e.target.parentElement.nextSibling
-      bubble.style.opacity = 0
+      if (this.multiWoman.length == 0 || this.multiMan.length == 0) {
+        let bubble = e.target.parentElement.nextSibling
+        bubble.style.opacity = 0
+      } else {
+        let bubble = e.target.childNodes[0]
+        bubble.style.opacity = 0
+      }
     },
+  },
+
+  mounted() {
+    this.multiHeight()
   },
 }
 </script>
@@ -313,6 +521,7 @@ export default {
 }
 .content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   padding-top: 40px;
@@ -323,7 +532,53 @@ export default {
     align-items: flex-end;
     height: 100%;
 
+    .bubble_box {
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% + 20px);
+      padding: 20px 8px;
+      border-radius: 10px;
+      color: white;
+      pointer-events: none;
+      transition: opacity 250ms ease-in-out;
+      z-index: 10;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+      &.multi {
+        /* top: -50%; */
+      }
+
+      .arrow {
+        position: absolute;
+        top: 85%;
+        width: 16px;
+        height: 16px;
+        transform: rotate(45deg);
+      }
+
+      .title {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .dv {
+        margin-bottom: 5px;
+      }
+
+      .per {
+        font-size: 14px;
+      }
+    }
+
     .manWrap {
+      position: relative;
       height: 100%;
       margin-right: 20px;
 
@@ -339,57 +594,29 @@ export default {
           font-size: 14px;
         }
 
-        .name {
-          position: absolute;
-          left: 50%;
-          bottom: -30px;
-          transform: translateX(-50%);
-          font-size: 14px;
-        }
-
         .dataBox {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-        }
 
-        .bubble_box {
-          opacity: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          position: absolute;
-          top: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-          width: calc(100% + 20px);
-          padding: 20px 8px;
-          border-radius: 10px;
-          /* background-color: red; */
-          color: white;
-          pointer-events: none;
-          transition: opacity 250ms ease-in-out;
-
-          &::after {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            content: '';
-            display: block;
-            border-width: 6px 6px;
-            border-color: customColorM transparent transparent;
-            border-style: solid;
-            width: 0;
-            height: 0;
+          .multi {
+            top: 50%;
           }
         }
 
         #manImg {
           height: 100%;
         }
+      }
+      .name {
+        position: absolute;
+        left: 50%;
+        bottom: -22px;
+        transform: translateX(-50%);
+        font-size: 14px;
+        white-space: nowrap;
       }
     }
 
@@ -409,14 +636,6 @@ export default {
           font-size: 14px;
         }
 
-        .name {
-          position: absolute;
-          left: 50%;
-          bottom: -30px;
-          transform: translateX(-50%);
-          font-size: 14px;
-        }
-
         .dataBox {
           position: absolute;
           top: 0;
@@ -425,41 +644,18 @@ export default {
           height: 100%;
         }
 
-        .bubble_box {
-          opacity: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          position: absolute;
-          top: 10%;
-          left: 50%;
-          transform: translateX(-50%);
-          width: calc(100% + 20px);
-          padding: 20px 8px;
-          border-radius: 10px;
-          /* background-color: red; */
-          color: white;
-          pointer-events: none;
-          transition: opacity 250ms ease-in-out;
-
-          &::after {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            content: '';
-            display: block;
-            border-width: 6px 6px;
-            border-color: inherit transparent transparent;
-            border-style: solid;
-            width: 0;
-            height: 0;
-          }
-        }
-
         #womanImg {
           height: 100%;
         }
+      }
+
+      .name {
+        position: absolute;
+        left: 50%;
+        bottom: -22px;
+        transform: translateX(-50%);
+        font-size: 14px;
+        white-space: nowrap;
       }
     }
   }
