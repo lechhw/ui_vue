@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+// Main
+@keyframes fadeIn {
+    from {
+        @include opacity(0);
+        visibility: hidden;
+    }
+    to {
+        @include opacity(1);
+        visibility: visible;
+    }
+}
+// Main
+@keyframes fadeOut {
+    from {
+        @include opacity(1);
+        visibility: visible;
+    }
+    to {
+        @include opacity(0);
+        visibility: hidden;
+    }
+}
+
+// Loader
+@keyframes loaderAni {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

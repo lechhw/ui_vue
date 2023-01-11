@@ -1,4 +1,16 @@
 @charset "utf-8";
 
-@import './_reset.scss';
+/* Global Utils */
+@import './util/_globals.scss';
+@import './util/_globals.scss';
+
+/* 폰트 */
+// @import './base/font';
+/* 컬러 */
+@import './base/_colors';
+
+/* reset css */
+@import './base/_normalize.scss';
+@import './base/_reset.scss';
+
 @import './_ui.scss';
