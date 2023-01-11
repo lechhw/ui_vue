@@ -1,16 +1,17 @@
 @charset "utf-8";
 
 /* Global Utils */
-@import './util/_globals.scss';
-@import './util/_globals.scss';
+@import './util/globals.scss';
+@import './util/mixins.scss';
 
 /* 폰트 */
 // @import './base/font';
 /* 컬러 */
-@import './base/_colors';
+@import './base/colors';
 
 /* reset css */
-@import './base/_normalize.scss';
-@import './base/_reset.scss';
+@import './base/normalize.scss';
+@import './base/reset.scss';
 
-@import './_ui.scss';
+/* 컴포넌트 */
+@import './component/bubble.scss';

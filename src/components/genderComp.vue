@@ -76,6 +76,29 @@
                             @click="evt_click(mData)"
                         ></div>
                     </div>
+                    <!-- 싱글 -->
+                    <bubble-box
+                        v-if="multiMan.length == 0"
+                        :html-type="true"
+                        pos="CM"
+                        :custom-color="setManColor || '#b4b4b4'"
+                    >
+                        <div class="dataBox">
+                            <div
+                                :style="{ height: setManHgt + '%' }"
+                                @click="evt_click(mData)"
+                            ></div>
+                            <div
+                                :style="{ height: 100 - setManHgt + '%' }"
+                                @click="evt_click(mData)"
+                            ></div>
+                        </div>
+                        <div slot="html-content" class="v3_chart_tooltip">
+                            <span class="title">{{ mData.name }}</span>
+                            <strong class="dv">{{ mData.value }}</strong>
+                            <span class="per">({{ mData.per }}%)</span>
+                        </div>
+                    </bubble-box>
 
                     <div
                         v-else
@@ -290,7 +313,9 @@
 </template>
 
 <script>
+import bubbleBox from './bubbleBox.vue'
 export default {
+    components: { bubbleBox },
     name: 'ChartGender',
 
     data() {
@@ -540,12 +565,63 @@ export default {
         this.multiHeight()
     },
 }
+
+//  <div
+//                 class="bubble_box multi"
+//                 :style="{ background: multiMan[0].color }"
+//               >
+//                 <span class="title">{{ multiMan[0].name }}</span>
+//                 <strong class="dv">{{ multiMan[0].value }}</strong>
+//                 <span class="per">({{ multiMan[0].per }}%)</span>
+//                 <div
+//                   class="arrow"
+//                   :style="{ background: multiMan[0].color }"
+//                 ></div>
+//               </div>
 </script>
 
 <style lang="scss" scoped>
 * {
     margin: 0;
     box-sizing: border-box;
+}
+
+.test {
+    width: 100%;
+}
+
+.v3_chart_tooltip {
+    display: block;
+    padding: 10px 25px;
+    color: #ffffff;
+    text-align: center;
+
+    .title {
+        display: block;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1;
+    }
+    .dv {
+        display: block;
+        padding: 5px 0 3px 0;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1;
+    }
+    .per {
+        display: block;
+        padding: 2px 0 0 0;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    &.is-wide {
+        padding: 15px 30px;
+    }
+    &.is-black {
+        color: #000000;
+    }
 }
 .content {
     display: flex;
