@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import Header from './components/headerComp.vue'
+import Header from './components/headerComp.vue';
 export default {
     name: 'App',
     components: {
         Header,
     },
-}
+};
 </script>
 
 <style lang="scss">
@@ -20,11 +20,18 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    vertical-align: top;
 }
 
 #app {
     position: fixed;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 </style>

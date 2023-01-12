@@ -1,10 +1,10 @@
 <template>
-    <div :id="id" class="content">
+    <div :id="id" class="gender">
         <div v-if="chartData == null || !chartData" class="ui_nodata">
             <font-awesome-icon icon="fa-solid fa-file" />
             <span>데이터가 없습니다.</span>
         </div>
-        <div v-else class="chart_wrapper">
+        <div v-else class="graphBox">
             <div class="manWrap" :style="{ height: manScale }">
                 <div class="manGraph">
                     <span class="info">{{ mData.per }}%</span>
@@ -98,14 +98,14 @@
 
                     <!-- 멀티 -->
                     <div class="dataBox" id="dataBoxWo" v-else>
-                        <comp-bubble-box :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
+                        <bubble-box :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
                             <div :style="{ height: multiWoHgtT + 'px' }" @click="evt_click(multiWoman[1])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
                                 <span class="title">{{ multiWoman[1].name }}</span>
                                 <strong class="dv">{{ multiWoman[1].value }}</strong>
                                 <span class="per">({{ multiWoman[1].per }}%)</span>
                             </div>
-                        </comp-bubble-box>
+                        </bubble-box>
                         <bubble-box :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
                             <div :style="{ height: multiWoHgtB + 'px' }" @click="evt_click(multiWoman[0])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
@@ -303,6 +303,7 @@ export default {
         multiHeight() {
             if (this.multiWoman.length == 0 || this.multiMan.length == 0) return;
             let dataBoxMan = document.getElementById('dataBoxMan');
+
             let manHgt = (dataBoxMan.clientHeight * this.setManHgt) / 100;
             this.multiManHgtT = manHgt;
             this.multiManHgtB = dataBoxMan.clientHeight - manHgt;
@@ -361,113 +362,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
+@charset "utf-8";
 
-.test {
-    width: 100%;
-}
+// 성별차트
+.gender {
+    height: 100%;
+    padding: 30px;
+    margin-top: 30px;
 
-.v3_chart_tooltip {
-    display: block;
-    padding: 10px 25px;
-    color: #ffffff;
-    text-align: center;
-
-    .title {
-        display: block;
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 1;
-    }
-    .dv {
-        display: block;
-        padding: 5px 0 3px 0;
-        font-size: 24px;
-        font-weight: bold;
-        line-height: 1;
-    }
-    .per {
-        display: block;
-        padding: 2px 0 0 0;
-        font-size: 14px;
-        line-height: 1;
-    }
-
-    &.is-wide {
-        padding: 15px 30px;
-    }
-    &.is-black {
-        color: #000000;
-    }
-}
-.content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    padding-top: 40px;
-
-    .chart_wrapper {
+    .graphBox {
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        width: 100%;
         height: 100%;
-
-        .bubble_box {
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 8%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% + 20px);
-            padding: 20px 8px;
-            border-radius: 10px;
-            color: white;
-            pointer-events: none;
-            transition: opacity 250ms ease-in-out;
-            z-index: 10;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-            // &.multi {
-
-            // }
-
-            .arrow {
-                position: absolute;
-                top: 85%;
-                width: 16px;
-                height: 16px;
-                transform: rotate(45deg);
-            }
-
-            .title {
-                font-weight: 600;
-                font-size: 18px;
-                margin-bottom: 5px;
-            }
-
-            .dv {
-                margin-bottom: 5px;
-            }
-
-            .per {
-                font-size: 14px;
-            }
-        }
 
         .manWrap {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
             height: 100%;
-            margin-right: 20px;
+            /* margin-right: 30px; */
 
             .manGraph {
                 position: relative;
+                width: auto;
                 height: 100%;
 
                 .info {
@@ -475,41 +396,47 @@ export default {
                     left: 50%;
                     top: -30px;
                     transform: translateX(-50%);
-                    font-size: 14px;
-                }
-
-                .dataBox {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-
-                    .multi {
-                        top: 50%;
-                    }
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #212121;
                 }
 
                 #manImg {
                     height: 100%;
                 }
+
+                .dataBox {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
             }
+
             .name {
                 position: absolute;
+                bottom: -25px;
                 left: 50%;
-                bottom: -22px;
-                transform: translateX(-50%);
-                font-size: 14px;
                 white-space: nowrap;
+                transform: translate(-50%);
             }
         }
 
         .womanWrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
             height: 100%;
-            margin-left: 20px;
+            /* margin-left: 30px; */
 
             .womanGraph {
                 position: relative;
+                width: auto;
                 height: 100%;
 
                 .info {
@@ -517,7 +444,13 @@ export default {
                     left: 50%;
                     top: -30px;
                     transform: translateX(-50%);
-                    font-size: 14px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #212121;
+                }
+
+                #womanImg {
+                    height: 100%;
                 }
 
                 .dataBox {
@@ -526,32 +459,52 @@ export default {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                }
-
-                #womanImg {
-                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
                 }
             }
 
             .name {
                 position: absolute;
+                bottom: -25px;
                 left: 50%;
-                bottom: -22px;
-                transform: translateX(-50%);
-                font-size: 14px;
                 white-space: nowrap;
+                transform: translate(-50%);
             }
         }
     }
 
-    .ui_nodata {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #999999;
+    .v3_chart_tooltip {
+        display: block;
+        padding: 15px 25px;
+        color: #ffffff;
+        text-align: center;
 
-        span {
-            margin-left: 10px;
+        .title {
+            display: block;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1;
+        }
+        .dv {
+            display: block;
+            padding: 5px 0 3px 0;
+            font-size: 26px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .per {
+            display: block;
+            padding: 2px 0 0 0;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        &.is-wide {
+            padding: 15px 30px;
+        }
+        &.is-black {
+            color: #000000;
         }
     }
 }
