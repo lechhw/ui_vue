@@ -8,50 +8,15 @@
             <div class="manWrap" :style="{ height: manScale }">
                 <div class="manGraph">
                     <span class="info">{{ mData.per }}%</span>
-
-                    <svg
-                        ref="manImg"
-                        id="manImg"
-                        viewBox="0 0 124 308"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg ref="manImg" id="manImg" viewBox="0 0 124 308" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask :id="mMaskId">
-                            <rect
-                                x="0"
-                                y="0"
-                                width="100%"
-                                :height="setManHgt + '%'"
-                                fill="white"
-                            ></rect>
+                            <rect x="0" y="0" width="100%" :height="setManHgt + '%'" fill="white"></rect>
                         </mask>
-                        <path
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
-                            :fill="setManColor"
-                        />
+                        <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z" :fill="setManColor" />
 
-                        <path
-                            v-if="multiMan.length == 0"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
-                            fill="#ffff"
-                            :mask="mSvgId"
-                        />
+                        <path v-if="multiMan.length == 0" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z" fill="#ffff" :mask="mSvgId" />
 
-                        <path
-                            v-else
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z"
-                            fill="#ffff"
-                            :mask="mSvgId"
-                        />
+                        <path v-else xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M62 64C79.6731 64 94 49.6731 94 32C94 14.3269 79.6731 0 62 0C44.3269 0 30 14.3269 30 32C30 49.6731 44.3269 64 62 64ZM0 96C0 84.9543 8.9543 76 20 76H104C115.046 76 124 84.9543 124 96V182C124 193.046 115.046 202 104 202H87V288C87 299.046 78.0457 308 67 308H57C45.9543 308 37 299.046 37 288V202H20C8.95431 202 0 193.046 0 182V96Z" fill="#ffff" :mask="mSvgId" />
 
                         <path
                             fill-rule="evenodd"
@@ -61,37 +26,12 @@
                         />
                     </svg>
 
-                    <div
-                        v-if="multiMan.length == 0"
-                        class="dataBox"
-                        @mouseover="evt_mouse_over"
-                        @mouseout="evt_mouse_out"
-                    >
-                        <div
-                            :style="{ height: setManHgt + '%' }"
-                            @click="evt_click(mData)"
-                        ></div>
-                        <div
-                            :style="{ height: 100 - setManHgt + '%' }"
-                            @click="evt_click(mData)"
-                        ></div>
-                    </div>
+                    <!-- | lengthLimitComma(1) -->
                     <!-- 싱글 -->
-                    <bubble-box
-                        v-if="multiMan.length == 0"
-                        :html-type="true"
-                        pos="CM"
-                        :custom-color="setManColor || '#b4b4b4'"
-                    >
+                    <bubble-box v-if="multiMan.length == 0" :html-type="true" pos="CM" :custom-color="setManColor || '#b4b4b4'">
                         <div class="dataBox">
-                            <div
-                                :style="{ height: setManHgt + '%' }"
-                                @click="evt_click(mData)"
-                            ></div>
-                            <div
-                                :style="{ height: 100 - setManHgt + '%' }"
-                                @click="evt_click(mData)"
-                            ></div>
+                            <div :style="{ height: setManHgt + '%' }" @click="evt_click(mData)"></div>
+                            <div :style="{ height: 100 - setManHgt + '%' }" @click="evt_click(mData)"></div>
                         </div>
                         <div slot="html-content" class="v3_chart_tooltip">
                             <span class="title">{{ mData.name }}</span>
@@ -100,67 +40,24 @@
                         </div>
                     </bubble-box>
 
-                    <div
-                        v-else
-                        id="dataBoxMan"
-                        class="dataBox"
-                        @mouseover="evt_mouse_over"
-                        @mouseout="evt_mouse_out"
-                    >
-                        <div
-                            :style="{ height: multiManHgtT + 'px' }"
-                            @click="evt_click(mData)"
-                        >
-                            <div
-                                class="bubble_box multi"
-                                :style="{ background: multiMan[0].color }"
-                            >
-                                <span class="title">{{
-                                    multiMan[0].name
-                                }}</span>
-                                <strong class="dv">{{
-                                    multiMan[0].value
-                                }}</strong>
-                                <span class="per"
-                                    >({{ multiMan[0].per }}%)</span
-                                >
-                                <div
-                                    class="arrow"
-                                    :style="{ background: multiMan[0].color }"
-                                ></div>
+                    <!-- 멀티 -->
+                    <div class="dataBox" ref="dataBox" id="dataBoxMan" v-else>
+                        <bubble-box class="is-gender" :html-type="true" pos="CM" :custom-color="setManColor || '#b4b4b4'">
+                            <div :style="{ height: multiManHgtT + 'px' }" @click="evt_click(multiMan[1])"></div>
+                            <div slot="html-content" class="v3_chart_tooltip">
+                                <span class="title">{{ multiMan[1].name }}</span>
+                                <strong class="dv">{{ multiMan[1].value }}</strong>
+                                <span class="per">({{ multiMan[1].per }}%)</span>
                             </div>
-                        </div>
-
-                        <div
-                            :style="{ height: multiManHgtB + 'px' }"
-                            @click="evt_click(mData)"
-                        ></div>
-                        <div
-                            class="bubble_box multi"
-                            :style="{ background: multiMan[1].color }"
-                        >
-                            <span class="title">{{ multiMan[1].name }}</span>
-                            <strong class="dv">{{ multiMan[1].value }}</strong>
-                            <span class="per">({{ multiMan[1].per }}%)</span>
-                            <div
-                                class="arrow"
-                                :style="{ background: multiMan[1].color }"
-                            ></div>
-                        </div>
-                    </div>
-
-                    <div
-                        v-if="multiMan.length == 0"
-                        class="bubble_box"
-                        :style="{ background: mData.color }"
-                    >
-                        <span class="title">{{ mData.name }}</span>
-                        <strong class="dv">{{ mData.value }}</strong>
-                        <span class="per">({{ mData.per }}%)</span>
-                        <div
-                            class="arrow"
-                            :style="{ background: mData.color }"
-                        ></div>
+                        </bubble-box>
+                        <bubble-box class="is-gender" :html-type="true" pos="CM" :custom-color="setManColor || '#b4b4b4'">
+                            <div :style="{ height: multiManHgtB + 'px' }" @click="evt_click(multiMan[0])"></div>
+                            <div slot="html-content" class="v3_chart_tooltip">
+                                <span class="title">{{ multiMan[0].name }}</span>
+                                <strong class="dv">{{ multiMan[0].value }}</strong>
+                                <span class="per">({{ multiMan[0].per }}%)</span>
+                            </div>
+                        </bubble-box>
                     </div>
                 </div>
                 <span class="name">남성</span>
@@ -168,49 +65,15 @@
             <div class="womanWrap" :style="{ height: womanScale }">
                 <div class="womanGraph">
                     <span class="info">{{ fData.per }}%</span>
-                    <svg
-                        ref="womanImg"
-                        id="womanImg"
-                        viewBox="0 0 139 308"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg ref="womanImg" id="womanImg" viewBox="0 0 139 308" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask :id="fMaskId">
-                            <rect
-                                x="0"
-                                y="0"
-                                width="100%"
-                                :height="setWomanHgt + '%'"
-                                fill="white"
-                            ></rect>
+                            <rect x="0" y="0" width="100%" :height="setWomanHgt + '%'" fill="white"></rect>
                         </mask>
-                        <path
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z"
-                            :fill="setWomanColor"
-                        />
+                        <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z" :fill="setWomanColor" />
 
-                        <path
-                            v-if="multiWoman.length == 0"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z"
-                            fill="#ffff"
-                            :mask="fSvgId"
-                        />
+                        <path v-if="multiWoman.length == 0" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z" fill="#ffff" :mask="fSvgId" />
 
-                        <path
-                            v-else
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z"
-                            fill="#ffff"
-                            :mask="fSvgId"
-                        />
+                        <path v-else xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M69 64C86.6731 64 101 49.6731 101 32C101 14.3269 86.6731 0 69 0C51.3269 0 37 14.3269 37 32C37 49.6731 51.3269 64 69 64ZM51.1009 85.1009C58.3905 70.0717 79.8014 70.0716 87.091 85.1008L136.162 186.272C142.604 199.554 132.929 215 118.167 215H94.096V288C94.096 299.046 85.1416 308 74.096 308H64.096C53.0503 308 44.096 299.046 44.096 288V215H20.0249C5.26242 215 -4.4125 199.554 2.02995 186.272L51.1009 85.1009Z" fill="#ffff" :mask="fSvgId" />
 
                         <path
                             fill-rule="evenodd"
@@ -219,92 +82,39 @@
                             :fill="setWomanColor"
                         />
                     </svg>
-                    <!-- 싱글 데이터 -->
-                    <div
-                        v-if="multiWoman.length == 0"
-                        class="dataBox"
-                        @mouseover="evt_mouse_over"
-                        @mouseout="evt_mouse_out"
-                    >
-                        <div
-                            :style="{ height: setWomanHgt + '%' }"
-                            @click="evt_click(fData)"
-                        ></div>
-                        <div
-                            :style="{ height: 100 - setWomanHgt + '%' }"
-                            @click="evt_click(fData)"
-                        ></div>
-                    </div>
 
-                    <!-- 멀티 데이터 -->
-                    <div v-else id="dataBoxWo" class="dataBox">
-                        <div
-                            :style="{ height: multiWoHgtT + 'px' }"
-                            @click="evt_click(mData)"
-                            @mouseover="evt_mouse_over"
-                            @mouseout="evt_mouse_out"
-                        >
-                            <div
-                                class="bubble_box multi"
-                                :style="{ background: multiWoman[1].color }"
-                            >
-                                <span class="title">{{
-                                    multiWoman[1].name
-                                }}</span>
-                                <strong class="dv">{{
-                                    multiWoman[1].value
-                                }}</strong>
-                                <span class="per"
-                                    >({{ multiWoman[1].per }}%)</span
-                                >
-                                <div
-                                    class="arrow"
-                                    :style="{ background: multiWoman[1].color }"
-                                ></div>
-                            </div>
+                    <!-- 싱글 -->
+                    <bubble-box v-if="multiWoman.length == 0" :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
+                        <div class="dataBox">
+                            <div :style="{ height: setWomanHgt + '%' }" @click="evt_click(fData)"></div>
+                            <div :style="{ height: 100 - setWomanHgt + '%' }" @click="evt_click(fData)"></div>
                         </div>
-
-                        <div
-                            :style="{ height: multiWoHgtB + 'px' }"
-                            @click="evt_click(mData)"
-                            @mouseover="evt_mouse_over"
-                            @mouseout="evt_mouse_out"
-                        >
-                            <div
-                                class="bubble_box multi"
-                                :style="{ background: multiWoman[0].color }"
-                            >
-                                <span class="title">{{
-                                    multiWoman[0].name
-                                }}</span>
-                                <strong class="dv">{{
-                                    multiWoman[0].value
-                                }}</strong>
-                                <span class="per"
-                                    >({{ multiWoman[0].per }}%)</span
-                                >
-                                <div
-                                    class="arrow"
-                                    :style="{ background: multiWoman[0].color }"
-                                ></div>
-                            </div>
+                        <div slot="html-content" class="v3_chart_tooltip">
+                            <span class="title">{{ fData.name }}</span>
+                            <strong class="dv">{{ fData.value }}</strong>
+                            <span class="per">({{ fData.per }}%)</span>
                         </div>
-                    </div>
+                    </bubble-box>
 
-                    <div
-                        v-if="multiMan.length == 0"
-                        class="bubble_box"
-                        :style="{ background: fData.color }"
-                    >
-                        <span class="title">{{ fData.name }}</span>
-                        <strong class="dv">{{ fData.value }}</strong>
-                        <span class="per">({{ fData.per }}%)</span>
-                        <div
-                            class="arrow"
-                            :style="{ background: fData.color }"
-                        ></div>
+                    <!-- 멀티 -->
+                    <div class="dataBox" id="dataBoxWo" v-else>
+                        <comp-bubble-box :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
+                            <div :style="{ height: multiWoHgtT + 'px' }" @click="evt_click(multiWoman[1])"></div>
+                            <div slot="html-content" class="v3_chart_tooltip">
+                                <span class="title">{{ multiWoman[1].name }}</span>
+                                <strong class="dv">{{ multiWoman[1].value }}</strong>
+                                <span class="per">({{ multiWoman[1].per }}%)</span>
+                            </div>
+                        </comp-bubble-box>
+                        <bubble-box :html-type="true" pos="CM" :custom-color="setWomanColor || '#b4b4b4'">
+                            <div :style="{ height: multiWoHgtB + 'px' }" @click="evt_click(multiWoman[0])"></div>
+                            <div slot="html-content" class="v3_chart_tooltip">
+                                <span class="title">{{ multiWoman[0].name }}</span>
+                                <strong class="dv">{{ multiWoman[0].value }}</strong>
+                                <span class="per">({{ multiWoman[0].per }}%)</span>
+                            </div>
+                        </bubble-box>
                     </div>
-
                     <span class="name">여성</span>
                 </div>
             </div>
@@ -313,7 +123,7 @@
 </template>
 
 <script>
-import bubbleBox from './bubbleBox.vue'
+import bubbleBox from './bubbleBox.vue';
 export default {
     components: { bubbleBox },
     name: 'ChartGender',
@@ -329,7 +139,7 @@ export default {
             multiWoHgtT: 0,
             multiWoHgtB: 0,
             customColorM: '',
-        }
+        };
     },
     props: {
         id: { type: String, default: null },
@@ -338,111 +148,81 @@ export default {
 
     computed: {
         manScale() {
-            let scale = ((this.mData.per / this.fData.per) * 100).toFixed(1)
+            let scale = ((this.mData.per / this.fData.per) * 100).toFixed(1);
             if (this.multiMan.length == 0) {
-                return
+                return;
             } else {
-                return this.mData.per > this.fData.per
-                    ? '100%'
-                    : scale > 40
-                    ? scale + '%'
-                    : '40%'
+                return this.mData.per > this.fData.per ? '100%' : scale > 40 ? scale + '%' : '40%';
             }
         },
 
         womanScale() {
-            var scale = ((this.fData.per / this.mData.per) * 100).toFixed(1)
+            var scale = ((this.fData.per / this.mData.per) * 100).toFixed(1);
 
             if (this.multiWoman.length == 0) {
-                return
+                return;
             } else {
-                return this.fData.per > this.mData.per
-                    ? '100%'
-                    : scale > 40
-                    ? scale + '%'
-                    : '40%'
+                return this.fData.per > this.mData.per ? '100%' : scale > 40 ? scale + '%' : '40%';
             }
         },
         setManHgt() {
-            let result = ''
-            result =
-                this.multiMan.length == 0
-                    ? 100 - this.mData.per
-                    : 100 - this.multiMan[0].per
+            let result = '';
+            result = this.multiMan.length == 0 ? 100 - this.mData.per : 100 - this.multiMan[0].per;
 
-            return result
+            return result;
         },
 
         setWomanHgt() {
-            let result = ''
-            result =
-                this.multiWoman.length == 0
-                    ? 100 - this.fData.per
-                    : 100 - this.multiWoman[0].per
+            let result = '';
+            result = this.multiWoman.length == 0 ? 100 - this.fData.per : 100 - this.multiWoman[0].per;
 
-            return result
+            return result;
         },
 
         setManColor() {
-            let result = ''
-            this.mData.color
-                ? (result = this.mData.color)
-                : (result = '#ececec')
-            return result
+            let result = '';
+            this.mData.color ? (result = this.mData.color) : (result = '#ececec');
+            return result;
         },
         setWomanColor() {
-            let result = ''
-            this.fData.color
-                ? (result = this.fData.color)
-                : (result = '#ececec')
-            return result
+            let result = '';
+            this.fData.color ? (result = this.fData.color) : (result = '#ececec');
+            return result;
         },
 
         setBubbleColM() {
             let result = {
                 background: this.mData.color,
                 borderColor: this.mData.color,
-            }
-            return result
+            };
+            return result;
         },
         mMaskId() {
-            let result = ''
-            result =
-                this.multiMan.length == 0
-                    ? this.id + '_singleMan'
-                    : this.id + '_multiMan'
-            return result
+            let result = '';
+            result = this.multiMan.length == 0 ? this.id + '_singleMan' : this.id + '_multiMan';
+            return result;
         },
 
         mSvgId() {
-            let name = ''
-            let result = ''
-            name =
-                this.multiMan.length == 0
-                    ? this.id + '_singleMan'
-                    : this.id + '_multiMan'
-            result = `url(#${name})`
-            return result
+            let name = '';
+            let result = '';
+            name = this.multiMan.length == 0 ? this.id + '_singleMan' : this.id + '_multiMan';
+            result = `url(#${name})`;
+            return result;
         },
 
         fMaskId() {
-            let result = ''
-            result =
-                this.multiWoman.length == 0
-                    ? this.id + '_singleWo'
-                    : this.id + '_multiWo'
-            return result
+            let result = '';
+            result = this.multiWoman.length == 0 ? this.id + '_singleWo' : this.id + '_multiWo';
+            return result;
         },
 
         fSvgId() {
-            let name = ''
-            let result = ''
-            name =
-                this.multiWoman.length == 0
-                    ? this.id + '_singleWo'
-                    : this.id + '_multiWo'
-            result = `url(#${name})`
-            return result
+            let name = '';
+            let result = '';
+            name = this.multiWoman.length == 0 ? this.id + '_singleWo' : this.id + '_multiWo';
+            result = `url(#${name})`;
+            return result;
         },
     },
 
@@ -451,32 +231,32 @@ export default {
             immediate: true,
             deep: true,
             handler(val) {
-                if (val) this.getData()
+                if (val) this.getData();
             },
         },
     },
 
     methods: {
         getData() {
-            let _this = this
-            let chartData = JSON.parse(JSON.stringify(this.chartData))
-            let man = 0
-            let woman = 0
-            let totalData = 0
-            let mColor = ''
-            let fColor = ''
+            let _this = this;
+            let chartData = JSON.parse(JSON.stringify(this.chartData));
+            let man = 0;
+            let woman = 0;
+            let totalData = 0;
+            let mColor = '';
+            let fColor = '';
 
             chartData.data.forEach((item) => {
                 if (item.code == 'M') {
                     item.datas.forEach((item2) => {
-                        man += item2.value
-                    })
-                    if (item.color) mColor = item.color
+                        man += item2.value;
+                    });
+                    if (item.color) mColor = item.color;
                 } else {
                     item.datas.forEach((item2) => {
-                        woman += item2.value
-                    })
-                    if (item.color) fColor = item.color
+                        woman += item2.value;
+                    });
+                    if (item.color) fColor = item.color;
                 }
 
                 if (item.datas.length > 1) {
@@ -487,8 +267,8 @@ export default {
                                 value: item3.value,
                                 per: ((item3.value / man) * 100).toFixed(1),
                                 color: item.color ? item.color : '',
-                            })
-                        })
+                            });
+                        });
                     } else {
                         item.datas.forEach((item3) => {
                             _this.multiWoman.push({
@@ -497,74 +277,74 @@ export default {
                                 per: ((item3.value / woman) * 100).toFixed(1),
 
                                 color: item.color ? item.color : '',
-                            })
-                        })
+                            });
+                        });
                     }
                 }
-            })
+            });
 
-            totalData = man + woman
+            totalData = man + woman;
             this.mData = {
                 name: '남성',
                 value: Number(man).toLocaleString('ko-KR'),
                 per: ((man / totalData) * 100).toFixed(1),
                 color: mColor,
-            }
+            };
 
             this.fData = {
                 name: '여성',
                 value: Number(woman).toLocaleString('ko-KR'),
                 per: ((woman / totalData) * 100).toFixed(1),
                 color: fColor,
-            }
-            this.customColorM = mColor
+            };
+            this.customColorM = mColor;
         },
 
         multiHeight() {
-            if (this.multiWoman.length == 0 || this.multiMan.length == 0) return
-            let dataBoxMan = document.getElementById('dataBoxMan')
-            let manHgt = (dataBoxMan.clientHeight * this.setManHgt) / 100
-            this.multiManHgtT = manHgt
-            this.multiManHgtB = dataBoxMan.clientHeight - manHgt
+            if (this.multiWoman.length == 0 || this.multiMan.length == 0) return;
+            let dataBoxMan = document.getElementById('dataBoxMan');
+            let manHgt = (dataBoxMan.clientHeight * this.setManHgt) / 100;
+            this.multiManHgtT = manHgt;
+            this.multiManHgtB = dataBoxMan.clientHeight - manHgt;
 
-            let dataBoxWo = document.getElementById('dataBoxWo')
-            let womanHgt = (dataBoxWo.clientHeight * this.setWomanHgt) / 100
-            this.multiWoHgtT = womanHgt
-            this.multiWoHgtB = dataBoxWo.clientHeight - womanHgt
+            let dataBoxWo = document.getElementById('dataBoxWo');
+            let womanHgt = (dataBoxWo.clientHeight * this.setWomanHgt) / 100;
+            this.multiWoHgtT = womanHgt;
+            this.multiWoHgtB = dataBoxWo.clientHeight - womanHgt;
         },
 
         evt_click(val) {
-            console.log(val)
-            this.$emit('input', val)
+            console.log(val);
+            this.$emit('input', val);
         },
 
         evt_mouse_over(e) {
             if (this.multiWoman.length == 0 || this.multiMan.length == 0) {
-                let bubble = e.target.parentElement.nextSibling
-                bubble.style.opacity = 1
+                let bubble = e.target.parentElement.nextSibling;
+                bubble.style.opacity = 1;
             } else {
-                let bubble = e.target.childNodes[0]
-                let posTop = e.target.offsetTop + e.target.clientHeight / 2
+                let bubble = e.target.childNodes[0];
+                let posTop = e.target.offsetTop + e.target.clientHeight / 2;
 
-                bubble.style.opacity = 1
-                bubble.style.top = -posTop
+                bubble.style.opacity = 1;
+                bubble.style.top = -posTop;
             }
         },
         evt_mouse_out(e) {
             if (this.multiWoman.length == 0 || this.multiMan.length == 0) {
-                let bubble = e.target.parentElement.nextSibling
-                bubble.style.opacity = 0
+                let bubble = e.target.parentElement.nextSibling;
+                bubble.style.opacity = 0;
             } else {
-                let bubble = e.target.childNodes[0]
-                bubble.style.opacity = 0
+                let bubble = e.target.childNodes[0];
+                bubble.style.opacity = 0;
             }
         },
     },
 
     mounted() {
-        this.multiHeight()
+        this.multiHeight();
     },
-}
+};
 
 //  <div
 //                 class="bubble_box multi"
@@ -654,9 +434,9 @@ export default {
             z-index: 10;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-            &.multi {
-                /* top: -50%; */
-            }
+            // &.multi {
+
+            // }
 
             .arrow {
                 position: absolute;
