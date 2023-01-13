@@ -1,9 +1,8 @@
-@charset "utf-8";
-
-// 성별차트
 .gender {
+    width: 100%;
     height: 100%;
-    padding: 30px;
+    // padding: 30px;
+    margin-top: 30px;
 
     .graphBox {
         display: flex;
@@ -106,6 +105,40 @@
                 white-space: nowrap;
                 transform: translate(-50%);
             }
+        }
+    }
+
+    .v3_chart_tooltip {
+        display: block;
+        padding: 15px 25px;
+        color: #ffffff;
+        text-align: center;
+
+        .title {
+            display: block;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1;
+        }
+        .dv {
+            display: block;
+            padding: 5px 0 3px 0;
+            font-size: 26px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .per {
+            display: block;
+            padding: 2px 0 0 0;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        &.is-wide {
+            padding: 15px 30px;
+        }
+        &.is-black {
+            color: #000000;
         }
     }
 }

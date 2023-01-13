@@ -7,9 +7,12 @@
                     <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
                 </button>
             </div>
-            <gender-comp id="singleData" :chartData="chartData" style="height: 200px"></gender-comp>
+            <div class="content">
+                <gender-comp v-if="chartData.data && chartData.data.length !== 0" id="singleData" :chartData="chartData" style="height: 200px"></gender-comp>
+                <div v-else class="ui_nodata"></div>
+            </div>
         </div>
-
+        <div class="hr"></div>
         <div class="row">
             <div class="gender_header">
                 <h3>비교 데이터 2개일 경우</h3>
@@ -17,7 +20,10 @@
                     <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
                 </button>
             </div>
-            <gender-comp id="multiData" :chartData="chartData2" style="height: 200px"></gender-comp>
+            <div class="content ui_loader_container" :class="{'is-loading' : }">
+                <gender-comp v-if="chartData2.data && chartData2.data.length !== 0" id="multiData" :chartData="chartData2" style="height: 200px"></gender-comp>
+                <div v-else class="ui_nodata"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -100,19 +106,10 @@ export default {
         };
     },
 
+    watch: {},
+
     mounted() {
-        // this.fetchData()
-    },
-    watch: {
-        // chartData: {
-        //   immediate: true,
-        //   deep: true,
-        //   handler() {
-        //     this.$nextTick(() => {
-        //       this.fetchData()
-        //     })
-        //   },
-        // },
+        // this.fetchData();
     },
 
     methods: {
@@ -195,13 +192,27 @@ export default {
 .wrapper {
     display: flex;
     flex-direction: column;
+    padding: 20px;
     height: 100%;
+    min-width: 325px;
 }
 .row {
-    height: 50%;
-    padding: 16px;
+    height: calc(100% / 2);
+    // padding: 16px;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .gender_header {
+    width: 100%;
+    height: 40px;
     display: flex;
     align-items: center;
 

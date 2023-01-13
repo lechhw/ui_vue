@@ -35,7 +35,7 @@
                         </div>
                         <div slot="html-content" class="v3_chart_tooltip">
                             <span class="title">{{ mData.name }}</span>
-                            <strong class="dv">{{ mData.value }}</strong>
+                            <strong class="dv">{{ mData.value.toLocaleString() }}</strong>
                             <span class="per">({{ mData.per }}%)</span>
                         </div>
                     </bubble-box>
@@ -46,7 +46,7 @@
                             <div :style="{ height: multiManHgtT + 'px' }" @click="evt_click(multiMan[1])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
                                 <span class="title">{{ multiMan[1].name }}</span>
-                                <strong class="dv">{{ multiMan[1].value }}</strong>
+                                <strong class="dv">{{ multiMan[1].value.toLocaleString() }}</strong>
                                 <span class="per">({{ multiMan[1].per }}%)</span>
                             </div>
                         </bubble-box>
@@ -54,7 +54,7 @@
                             <div :style="{ height: multiManHgtB + 'px' }" @click="evt_click(multiMan[0])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
                                 <span class="title">{{ multiMan[0].name }}</span>
-                                <strong class="dv">{{ multiMan[0].value }}</strong>
+                                <strong class="dv">{{ multiMan[0].value.toLocaleString() }}</strong>
                                 <span class="per">({{ multiMan[0].per }}%)</span>
                             </div>
                         </bubble-box>
@@ -91,7 +91,7 @@
                         </div>
                         <div slot="html-content" class="v3_chart_tooltip">
                             <span class="title">{{ fData.name }}</span>
-                            <strong class="dv">{{ fData.value }}</strong>
+                            <strong class="dv">{{ fData.value.toLocaleString() }}</strong>
                             <span class="per">({{ fData.per }}%)</span>
                         </div>
                     </bubble-box>
@@ -102,7 +102,7 @@
                             <div :style="{ height: multiWoHgtT + 'px' }" @click="evt_click(multiWoman[1])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
                                 <span class="title">{{ multiWoman[1].name }}</span>
-                                <strong class="dv">{{ multiWoman[1].value }}</strong>
+                                <strong class="dv">{{ multiWoman[1].value.toLocaleString() }}</strong>
                                 <span class="per">({{ multiWoman[1].per }}%)</span>
                             </div>
                         </bubble-box>
@@ -110,7 +110,7 @@
                             <div :style="{ height: multiWoHgtB + 'px' }" @click="evt_click(multiWoman[0])"></div>
                             <div slot="html-content" class="v3_chart_tooltip">
                                 <span class="title">{{ multiWoman[0].name }}</span>
-                                <strong class="dv">{{ multiWoman[0].value }}</strong>
+                                <strong class="dv">{{ multiWoman[0].value.toLocaleString() }}</strong>
                                 <span class="per">({{ multiWoman[0].per }}%)</span>
                             </div>
                         </bubble-box>
@@ -346,166 +346,6 @@ export default {
         this.multiHeight();
     },
 };
-
-//  <div
-//                 class="bubble_box multi"
-//                 :style="{ background: multiMan[0].color }"
-//               >
-//                 <span class="title">{{ multiMan[0].name }}</span>
-//                 <strong class="dv">{{ multiMan[0].value }}</strong>
-//                 <span class="per">({{ multiMan[0].per }}%)</span>
-//                 <div
-//                   class="arrow"
-//                   :style="{ background: multiMan[0].color }"
-//                 ></div>
-//               </div>
 </script>
 
-<style lang="scss" scoped>
-@charset "utf-8";
-
-// 성별차트
-.gender {
-    height: 100%;
-    padding: 30px;
-    margin-top: 30px;
-
-    .graphBox {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        width: 100%;
-        height: 100%;
-
-        .manWrap {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-end;
-            height: 100%;
-            /* margin-right: 30px; */
-
-            .manGraph {
-                position: relative;
-                width: auto;
-                height: 100%;
-
-                .info {
-                    position: absolute;
-                    left: 50%;
-                    top: -30px;
-                    transform: translateX(-50%);
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: #212121;
-                }
-
-                #manImg {
-                    height: 100%;
-                }
-
-                .dataBox {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-            }
-
-            .name {
-                position: absolute;
-                bottom: -25px;
-                left: 50%;
-                white-space: nowrap;
-                transform: translate(-50%);
-            }
-        }
-
-        .womanWrap {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-end;
-            height: 100%;
-            /* margin-left: 30px; */
-
-            .womanGraph {
-                position: relative;
-                width: auto;
-                height: 100%;
-
-                .info {
-                    position: absolute;
-                    left: 50%;
-                    top: -30px;
-                    transform: translateX(-50%);
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: #212121;
-                }
-
-                #womanImg {
-                    height: 100%;
-                }
-
-                .dataBox {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-            }
-
-            .name {
-                position: absolute;
-                bottom: -25px;
-                left: 50%;
-                white-space: nowrap;
-                transform: translate(-50%);
-            }
-        }
-    }
-
-    .v3_chart_tooltip {
-        display: block;
-        padding: 15px 25px;
-        color: #ffffff;
-        text-align: center;
-
-        .title {
-            display: block;
-            font-size: 16px;
-            font-weight: normal;
-            line-height: 1;
-        }
-        .dv {
-            display: block;
-            padding: 5px 0 3px 0;
-            font-size: 26px;
-            font-weight: bold;
-            line-height: 1;
-        }
-        .per {
-            display: block;
-            padding: 2px 0 0 0;
-            font-size: 14px;
-            line-height: 1;
-        }
-
-        &.is-wide {
-            padding: 15px 30px;
-        }
-        &.is-black {
-            color: #000000;
-        }
-    }
-}
-</style>
+<style lang="scss" scoped></style>
