@@ -20,7 +20,7 @@
                     <font-awesome-icon icon="fa-solid fa-arrows-rotate" />
                 </button>
             </div>
-            <div class="content ui_loader_container" :class="{'is-loading' : }">
+            <div class="content">
                 <gender-comp v-if="chartData2.data && chartData2.data.length !== 0" id="multiData" :chartData="chartData2" style="height: 200px"></gender-comp>
                 <div v-else class="ui_nodata"></div>
             </div>
@@ -32,10 +32,10 @@
 import genderComp from '@/components/genderComp.vue';
 export default {
     components: { genderComp },
-    // name: 'ChartGender',
 
     data() {
         return {
+            loading: false,
             chartData: {
                 data: [
                     {
@@ -70,7 +70,7 @@ export default {
                     {
                         name: '남성',
                         code: 'M',
-                        color: '#00ACEC',
+                        color: '#6bd689',
                         datas: [
                             {
                                 name: '미혼',
@@ -87,7 +87,7 @@ export default {
                     {
                         name: '여성',
                         code: 'F',
-                        color: '#FF5EDA',
+                        color: '#f7dc7b',
                         datas: [
                             {
                                 name: '미혼',
@@ -108,9 +108,7 @@ export default {
 
     watch: {},
 
-    mounted() {
-        // this.fetchData();
-    },
+    mounted() {},
 
     methods: {
         fetchData() {
@@ -150,7 +148,7 @@ export default {
                     {
                         name: '남성',
                         code: 'M',
-                        color: '#00ACEC',
+                        color: '#6bd689',
                         datas: [
                             {
                                 name: '미혼',
@@ -167,7 +165,7 @@ export default {
                     {
                         name: '여성',
                         code: 'F',
-                        color: '#FF5EDA',
+                        color: '#f7dc7b',
                         datas: [
                             {
                                 name: '미혼',
@@ -198,7 +196,6 @@ export default {
 }
 .row {
     height: calc(100% / 2);
-    // padding: 16px;
     display: flex;
     flex-direction: column;
 
